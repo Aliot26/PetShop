@@ -1,26 +1,32 @@
 package com.volha.shop.controller;
 
-import com.volha.shop.model.Product;
+import com.volha.shop.dto.ProductDto;
 import com.volha.shop.service.ProductService;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.data.domain.Sort;
 
 import java.util.List;
+
+import static com.volha.shop.dto.ProductDtoMapper.mapToProductDtos;
 
 /*
  *Created by olga on 07.05.2021
  */
+@Api("ApiController for Products")
 @RestController
 @RequiredArgsConstructor
 public class ProductController {
     private final ProductService productService;
 
     @GetMapping("/products")
-    public List<Product> products(@RequestParam(required = false) int page, Sort.Direction sort){
+    @ApiOperation(value = "This will get a list of products")
+    public List<ProductDto> products(@RequestParam(required = false) int page, Sort.Direction sort){
         int pageNumber = page >= 0 ? page : 0;
-        return productService.getAllProducts(pageNumber, sort);
+        return mapToProductDtos(productService.getAllProducts(pageNumber, sort));
     }
 }
