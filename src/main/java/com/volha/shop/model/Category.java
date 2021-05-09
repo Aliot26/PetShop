@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.util.List;
 
 /*
  *Created by olga on 07.05.2021
@@ -22,4 +23,8 @@ public class Category {
     private Long id;
 
     private String name;
+
+    @OneToMany
+    @JoinColumn(name="categoryId")
+    private List<Product> productList;
 }
