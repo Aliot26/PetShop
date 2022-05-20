@@ -1,5 +1,6 @@
 package com.volha.shop.repository;
 
+import com.volha.shop.model.Category;
 import com.volha.shop.model.Product;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -15,4 +16,5 @@ import java.util.List;
 public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("select p from Product p")
     List<Product> findAllProduct(Pageable page);
-}
+
+   }

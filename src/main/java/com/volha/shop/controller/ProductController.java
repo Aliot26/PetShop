@@ -25,8 +25,11 @@ public class ProductController {
 
     @GetMapping("/products")
     @ApiOperation(value = "This will get a list of products")
-    public List<ProductDto> products(@RequestParam(required = false) int page, Sort.Direction sort){
-        int pageNumber = page >= 0 ? page : 0;
-        return mapToProductDtos(productService.getAllProducts(pageNumber, sort));
+    public List<ProductDto> products(@RequestParam(required = false) Integer page, Sort.Direction sort){
+        int pageNumber = page !=null && page >= 0 ? page : 0;
+        Sort.Direction sortDirection = sort != null ? sort : Sort.Direction.ASC;
+        return mapToProductDtos(productService.getAllProducts(pageNumber, sortDirection));
     }
+
+    
 }
